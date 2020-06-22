@@ -51,4 +51,4 @@ const api = RestApi.fromRestApiAttributes(this, 'RestApi', {
       }
     );
 
-PS: From the repo code it is clear that "restApi throws an error on imported while api returns correctly". But I don't see how that is called. What am I missing here?
+When we use lambdaIntegration, it intrinsically calls ${method.restApi.node.uniqueId} which will throw an error as method.api is needed for imported gateway. Workarounds?
