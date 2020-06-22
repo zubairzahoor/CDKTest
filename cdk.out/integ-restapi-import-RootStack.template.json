@@ -1,0 +1,242 @@
+{
+  "Resources": {
+    "RestApi0C43BF4B": {
+      "Type": "AWS::ApiGateway::RestApi",
+      "Properties": {
+        "Name": "RestApi"
+      },
+      "Metadata": {
+        "aws:cdk:path": "integ-restapi-import-RootStack/RestApi/Resource"
+      }
+    },
+    "RestApiCloudWatchRoleE3ED6605": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "apigateway.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"
+              ]
+            ]
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "integ-restapi-import-RootStack/RestApi/CloudWatchRole/Resource"
+      }
+    },
+    "RestApiAccount7C83CF5A": {
+      "Type": "AWS::ApiGateway::Account",
+      "Properties": {
+        "CloudWatchRoleArn": {
+          "Fn::GetAtt": [
+            "RestApiCloudWatchRoleE3ED6605",
+            "Arn"
+          ]
+        }
+      },
+      "DependsOn": [
+        "RestApi0C43BF4B"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "integ-restapi-import-RootStack/RestApi/Account"
+      }
+    },
+    "RestApiANYA7C1DC94": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "ANY",
+        "ResourceId": {
+          "Fn::GetAtt": [
+            "RestApi0C43BF4B",
+            "RootResourceId"
+          ]
+        },
+        "RestApiId": {
+          "Ref": "RestApi0C43BF4B"
+        },
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "Type": "MOCK"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "integ-restapi-import-RootStack/RestApi/Default/ANY/Resource"
+      }
+    },
+    "integrestapiimportPetsStackNestedStackintegrestapiimportPetsStackNestedStackResource2B31898B": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "TemplateURL": {
+          "Fn::Join": [
+            "",
+            [
+              "https://s3.",
+              {
+                "Ref": "AWS::Region"
+              },
+              ".",
+              {
+                "Ref": "AWS::URLSuffix"
+              },
+              "/",
+              {
+                "Ref": "AssetParametersd7d059d0ffe26e327fbc8d2a3029dde5d1f6ba30ebc107088557ba72ee8ce2eeS3BucketF3C99065"
+              },
+              "/",
+              {
+                "Fn::Select": [
+                  0,
+                  {
+                    "Fn::Split": [
+                      "||",
+                      {
+                        "Ref": "AssetParametersd7d059d0ffe26e327fbc8d2a3029dde5d1f6ba30ebc107088557ba72ee8ce2eeS3VersionKeyE2513CD5"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "Fn::Select": [
+                  1,
+                  {
+                    "Fn::Split": [
+                      "||",
+                      {
+                        "Ref": "AssetParametersd7d059d0ffe26e327fbc8d2a3029dde5d1f6ba30ebc107088557ba72ee8ce2eeS3VersionKeyE2513CD5"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          ]
+        },
+        "Parameters": {
+          "referencetointegrestapiimportRootStackRestApi2647DA4CRootResourceId": {
+            "Fn::GetAtt": [
+              "RestApi0C43BF4B",
+              "RootResourceId"
+            ]
+          },
+          "referencetointegrestapiimportRootStackRestApi2647DA4CRef": {
+            "Ref": "RestApi0C43BF4B"
+          }
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "integ-restapi-import-RootStack/integ-restapi-import-PetsStack.NestedStack/integ-restapi-import-PetsStack.NestedStackResource"
+      }
+    },
+    "integrestapiimportBooksStackNestedStackintegrestapiimportBooksStackNestedStackResource395C2C9B": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "TemplateURL": {
+          "Fn::Join": [
+            "",
+            [
+              "https://s3.",
+              {
+                "Ref": "AWS::Region"
+              },
+              ".",
+              {
+                "Ref": "AWS::URLSuffix"
+              },
+              "/",
+              {
+                "Ref": "AssetParametersfec37368c5564a243e5a76fb15d492f62ee8c4ccb896d76d76f703526ffe4b71S3Bucket0184DAEB"
+              },
+              "/",
+              {
+                "Fn::Select": [
+                  0,
+                  {
+                    "Fn::Split": [
+                      "||",
+                      {
+                        "Ref": "AssetParametersfec37368c5564a243e5a76fb15d492f62ee8c4ccb896d76d76f703526ffe4b71S3VersionKey54D9CB2C"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "Fn::Select": [
+                  1,
+                  {
+                    "Fn::Split": [
+                      "||",
+                      {
+                        "Ref": "AssetParametersfec37368c5564a243e5a76fb15d492f62ee8c4ccb896d76d76f703526ffe4b71S3VersionKey54D9CB2C"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          ]
+        },
+        "Parameters": {
+          "referencetointegrestapiimportRootStackRestApi2647DA4CRootResourceId": {
+            "Fn::GetAtt": [
+              "RestApi0C43BF4B",
+              "RootResourceId"
+            ]
+          },
+          "referencetointegrestapiimportRootStackRestApi2647DA4CRef": {
+            "Ref": "RestApi0C43BF4B"
+          }
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "integ-restapi-import-RootStack/integ-restapi-import-BooksStack.NestedStack/integ-restapi-import-BooksStack.NestedStackResource"
+      }
+    }
+  },
+  "Parameters": {
+    "AssetParametersd7d059d0ffe26e327fbc8d2a3029dde5d1f6ba30ebc107088557ba72ee8ce2eeS3BucketF3C99065": {
+      "Type": "String",
+      "Description": "S3 bucket for asset \"d7d059d0ffe26e327fbc8d2a3029dde5d1f6ba30ebc107088557ba72ee8ce2ee\""
+    },
+    "AssetParametersd7d059d0ffe26e327fbc8d2a3029dde5d1f6ba30ebc107088557ba72ee8ce2eeS3VersionKeyE2513CD5": {
+      "Type": "String",
+      "Description": "S3 key for asset version \"d7d059d0ffe26e327fbc8d2a3029dde5d1f6ba30ebc107088557ba72ee8ce2ee\""
+    },
+    "AssetParametersd7d059d0ffe26e327fbc8d2a3029dde5d1f6ba30ebc107088557ba72ee8ce2eeArtifactHashBDF5C1CC": {
+      "Type": "String",
+      "Description": "Artifact hash for asset \"d7d059d0ffe26e327fbc8d2a3029dde5d1f6ba30ebc107088557ba72ee8ce2ee\""
+    },
+    "AssetParametersfec37368c5564a243e5a76fb15d492f62ee8c4ccb896d76d76f703526ffe4b71S3Bucket0184DAEB": {
+      "Type": "String",
+      "Description": "S3 bucket for asset \"fec37368c5564a243e5a76fb15d492f62ee8c4ccb896d76d76f703526ffe4b71\""
+    },
+    "AssetParametersfec37368c5564a243e5a76fb15d492f62ee8c4ccb896d76d76f703526ffe4b71S3VersionKey54D9CB2C": {
+      "Type": "String",
+      "Description": "S3 key for asset version \"fec37368c5564a243e5a76fb15d492f62ee8c4ccb896d76d76f703526ffe4b71\""
+    },
+    "AssetParametersfec37368c5564a243e5a76fb15d492f62ee8c4ccb896d76d76f703526ffe4b71ArtifactHashFECFD5AA": {
+      "Type": "String",
+      "Description": "Artifact hash for asset \"fec37368c5564a243e5a76fb15d492f62ee8c4ccb896d76d76f703526ffe4b71\""
+    }
+  }
+}

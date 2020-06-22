@@ -1,0 +1,61 @@
+{
+  "Resources": {
+    "RestApibooksA2500ABD": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Ref": "referencetointegrestapiimportRootStackRestApi2647DA4CRootResourceId"
+        },
+        "PathPart": "books",
+        "RestApiId": {
+          "Ref": "referencetointegrestapiimportRootStackRestApi2647DA4CRef"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "integ-restapi-import-RootStack/integ-restapi-import-BooksStack/RestApi/Default/books/Resource"
+      }
+    },
+    "MyLambdaServiceRole4539ECB6": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+              ]
+            ]
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "integ-restapi-import-RootStack/integ-restapi-import-BooksStack/MyLambda/ServiceRole/Resource"
+      }
+    }
+  },
+  "Parameters": {
+    "referencetointegrestapiimportRootStackRestApi2647DA4CRootResourceId": {
+      "Type": "String"
+    },
+    "referencetointegrestapiimportRootStackRestApi2647DA4CRef": {
+      "Type": "String"
+    }
+  }
+}
